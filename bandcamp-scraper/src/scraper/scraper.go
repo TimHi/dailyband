@@ -31,7 +31,7 @@ func Scrape() []model.Album {
 	c.OnHTML(".pagination-link", func(e *colly.HTMLElement) {
 		if e.ChildText(".back-text") == "← Older posts" {
 			log.Println(e.Attr("href"))
-			e.Request.Visit(e.Attr("href"))
+			//e.Request.Visit(e.Attr("href"))
 		}
 	})
 
