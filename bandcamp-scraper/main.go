@@ -13,9 +13,5 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
-	// data, err := json.Marshal(scrapedAlbums)
-	// if err != nil {
-	// 	panic("Failed to marshal parsed albums")
-	// }
-	// log.Println(string(data))
+	log.Println("Succesfully sent scraped data to backend")
 }

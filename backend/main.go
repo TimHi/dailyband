@@ -23,7 +23,6 @@ func main() {
 			Handler: func(c echo.Context) error {
 				log.Println("Received request to /api/upload")
 
-				// Print the raw request body for debugging
 				rawBody, err := io.ReadAll(c.Request().Body)
 				if err != nil {
 					log.Println("Error reading request body:", err)
@@ -31,9 +30,6 @@ func main() {
 						"error": "Internal server error",
 					})
 				}
-				//log.Println("Raw Request Body:", string(rawBody))
-
-				// Decode JSON request
 				var requestPayload []model.Album
 				if err := json.Unmarshal(rawBody, &requestPayload); err != nil {
 					log.Println("Error decoding JSON:", err)
@@ -43,9 +39,6 @@ func main() {
 				}
 
 				log.Println("Decoded JSON payload:", requestPayload)
-
-				// Process the JSON payload as needed
-				// You can access data like requestPayload["key"]
 
 				return c.JSON(http.StatusOK, map[string]string{
 					"message": "Data received successfully",
