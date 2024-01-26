@@ -12,6 +12,7 @@ func main() {
 	err := network.SendParsedData(&scrapedAlbums)
 	if err != nil {
 		log.Println(err)
+	} else {
+		log.Println("Succesfully sent scraped data to backend")
 	}
-	log.Println("Succesfully sent scraped data to backend")
 }
