@@ -18,6 +18,7 @@ const dailyAlbum = getDailyAlbum
         </h2>
       </div>
     </div>
+    <div></div>
   </main>
 </template>
 

@@ -17,13 +17,13 @@ var (
 func Scrape() []model.Album {
 	c := colly.NewCollector()
 	albums := []model.Album{}
-
 	c.OnHTML(".aotd", func(e *colly.HTMLElement) {
 		album := model.Album{}
 		err := scrapeAlbum(e, &album)
 		if err != nil {
 			log.Println(err)
 		} else {
+			//scrapeGenres(&album)
 			albums = append(albums, album)
 		}
 	})
@@ -36,6 +36,15 @@ func Scrape() []model.Album {
 
 	c.Visit("https://daily.bandcamp.com/album-of-the-day")
 	return albums
+}
+
+func scrapeGenres(a *model.Album) {
+	c := colly.NewCollector()
+	c.OnHTML("div.genre a", func(e *colly.HTMLElement) {
+		linkText := e.Text
+		a.Genres = append(a.Genres, linkText)
+	})
+	c.Visit("https://daily.bandcamp.com" + a.Link)
 }
 
 func scrapeAlbum(e *colly.HTMLElement, a *model.Album) error {
