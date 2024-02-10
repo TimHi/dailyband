@@ -4,6 +4,7 @@ import { useAlbumStore } from '@/stores/album'
 const albumStore = useAlbumStore()
 const { getDailyAlbum } = albumStore
 const dailyAlbum = getDailyAlbum
+console.log(dailyAlbum)
 </script>
 
 <template>
@@ -29,11 +30,14 @@ const dailyAlbum = getDailyAlbum
   justify-content: center;
   height: 100vh;
 }
+
 .border {
   border: 1px solid #383a3f;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 10px; /* Add some padding for better visual appearance */
-  text-align: center; /* Center text horizontally */
+  padding: 10px;
+  /* Add some padding for better visual appearance */
+  text-align: center;
+  /* Center text horizontally */
   height: auto;
   width: auto;
   display: flex;

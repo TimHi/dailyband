@@ -1,9 +1,16 @@
 import type { Album } from '@/model/album'
-import PocketBase from 'pocketbase'
-const pb = new PocketBase('http://localhost:9000/')
+import { createClient } from '@supabase/supabase-js'
+
+export const supabase = createClient(
+  'https://jepgwqafueosittvbdmt.supabase.co',
+  import.meta.env.VITE_DB_ANON ?? ''
+)
 
 export async function GetDaily(): Promise<Album[]> {
-  return await pb.collection('album').getFullList({
-    sort: '-created'
-  })
+  const { data, error } = await supabase.from('Album').select('*')
+  console.log(data)
+  if (error !== null) console.error(error)
+  const albumList: Album[] = []
+  data?.forEach((a) => albumList.push(a.album))
+  return albumList
 }
