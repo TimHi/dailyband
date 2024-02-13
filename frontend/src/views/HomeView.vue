@@ -4,22 +4,30 @@ import { useAlbumStore } from '@/stores/album'
 const albumStore = useAlbumStore()
 const { getDailyAlbum } = albumStore
 const dailyAlbum = getDailyAlbum
-console.log(dailyAlbum)
+
 </script>
 
 <template>
+  <img src="../assets/images/eel.png" />
   <main class="center">
-    <div class="border">
+    <div class="container">
+      <h1>Try This Tune: Daily Camp's Musical Recommendation</h1>
       <img class="item" :src="dailyAlbum.image" />
       <div>
-        <h1 class="item">{{ dailyAlbum.artist }} - {{ dailyAlbum.title }}</h1>
-        <h2 class="item">
-          Daily Album from {{ dailyAlbum.date }} -
-          <a :href="'https://daily.bandcamp.com/' + dailyAlbum.link">Link 🔗</a>
-        </h2>
+        <a :href="'https://daily.bandcamp.com/' + dailyAlbum.link">
+          <h2 class="item">{{ dailyAlbum.artist[0] }} - {{ dailyAlbum.title }}</h2>
+          <p class="item">
+            Album of the day: {{ dailyAlbum.date }}
+          </p>
+        </a>
+      </div>
+      <div>
+        <h3>Keep the music fresh and exciting! Explore the eclectic world of Bandcamp's <a
+            href="https://daily.bandcamp.com/album-of-the-day">'Album of the Day'</a> with daily
+          randomized picks.</h3>
       </div>
     </div>
-    <div></div>
+
   </main>
 </template>
 
@@ -29,6 +37,12 @@ console.log(dailyAlbum)
   align-items: center;
   justify-content: center;
   height: 100vh;
+}
+
+.container {
+  max-width: 400px;
+
+  flex-wrap: wrap;
 }
 
 .border {

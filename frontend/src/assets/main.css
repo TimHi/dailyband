@@ -1,6 +1,15 @@
 @import './base.css';
 
 @font-face {
+  font-family: 'Raleway';
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+000-5FF;
+  src: url('/fonts/Raleway-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
   font-family: 'Jura';
   font-weight: 400;
   font-style: normal;
@@ -14,7 +23,9 @@
 
 a,
 h1,
-h2 {
+h2,
+h3,
+p {
   color: #f6b352;
   text-decoration: none;
 }
@@ -23,4 +34,9 @@ body,
 html {
   margin: 0;
   padding: 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
