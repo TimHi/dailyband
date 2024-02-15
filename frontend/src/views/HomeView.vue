@@ -8,7 +8,6 @@ const dailyAlbum = getDailyAlbum
 </script>
 
 <template>
-  <img src="../assets/images/eel.png" />
   <main class="center">
     <div class="container">
       <h1>Try This Tune: Daily Camp's Musical Recommendation</h1>
