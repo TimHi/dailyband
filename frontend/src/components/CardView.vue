@@ -12,31 +12,40 @@ const dailyAlbum = getDailyAlbum
       <h1>Try this tune</h1>
       <p>Daily Camp's Musical Recommendation</p>
       <h2>{{ dailyAlbum.date }}</h2>
-      <div class="backgroundvinyl">
+      <div class="images">
         <img class="item" :src="dailyAlbum.image" />
+        <div
+          class="coverBackground"
+          :style="{ backgroundImage: 'url(' + dailyAlbum.image + ')' }"
+        ></div>
+        <img class="backgroundImage" src="../assets/images/half-vinyl.png" />
       </div>
       <div class="container">
         <h3>
           <b>{{ dailyAlbum.title }}</b>
         </h3>
         <h4>by {{ dailyAlbum.artist[0] }}</h4>
-        <p>
-          Lorem ipsum der aal Aalt ich brauch hier ein wenig Content am besten so viel das es
-          Overflowt also schreib ich hier einfach mal weiter. Sollte passen jetzt. Oder ein zwei
-          Sätze mehr sollten auch nicht wehtun.
-        </p>
+        <a :href="'https://daily.bandcamp.com' + dailyAlbum.link"> Learn more </a>
       </div>
     </div>
   </main>
 </template>
 <style>
-img {
-  height: 300px;
-  border-radius: 5%;
+.images {
+  display: flex;
+  align-items: center;
+  min-width: 500px;
+  justify-content: center;
 }
 
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+.coverBackground {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: aqua;
+}
+
+.backgroundImage {
+  height: 280px;
 }
 
 .container {
@@ -53,29 +62,32 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  background-color: rgb(89, 99, 99);
+  background-color: #2a2a2a;
   border-radius: 2%;
   text-align: center;
   margin: auto;
+  min-width: 500px;
+  border-color: #444444;
+  border-style: solid;
 }
 
 .backgroundvinyl {
-  background-image: url(../assets/images/vinyl.png);
-  background-size: cover;
+  background-image: url(dailyAlbum.image);
+  background-size: contain;
   background-repeat: no-repeat;
-  background-position: 20px;
   height: 250px;
   display: flex;
   align-items: center;
+  background-position: center;
   justify-content: center;
+  min-width: 200px;
 }
 
 .item {
-  height: 200px;
   width: auto;
   border-radius: 5%;
+  height: 300px;
 }
 
 .container {
