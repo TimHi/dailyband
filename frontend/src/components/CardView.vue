@@ -14,11 +14,10 @@ const dailyAlbum = getDailyAlbum
       <h2>{{ dailyAlbum.date }}</h2>
       <div class="images">
         <img class="item" :src="dailyAlbum.image" />
-        <div
-          class="coverBackground"
-          :style="{ backgroundImage: 'url(' + dailyAlbum.image + ')' }"
-        ></div>
-        <img class="backgroundImage" src="../assets/images/half-vinyl.png" />
+        <div>
+          <img class="backgroundImage" src="../assets/images/half-vinyl.png" />
+          <img class="coverBackground" :src="dailyAlbum.image" />
+        </div>
       </div>
       <div class="container">
         <h3>
@@ -32,6 +31,7 @@ const dailyAlbum = getDailyAlbum
 </template>
 <style>
 .images {
+  position: relative;
   display: flex;
   align-items: center;
   min-width: 500px;
@@ -39,13 +39,18 @@ const dailyAlbum = getDailyAlbum
 }
 
 .coverBackground {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: aqua;
+  position: absolute;
+  left: 55%;
+  top: 35%;
+  height: 100px;
+  transform: rotate(48deg);
+  z-index: -1;
 }
 
 .backgroundImage {
   height: 280px;
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -70,6 +75,7 @@ const dailyAlbum = getDailyAlbum
   min-width: 500px;
   border-color: #444444;
   border-style: solid;
+  z-index: -2;
 }
 
 .backgroundvinyl {
