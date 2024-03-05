@@ -8,7 +8,6 @@ export const supabase = createClient(
 
 export async function GetDaily(): Promise<Album[]> {
   const { data, error } = await supabase.from('Album').select('*')
-  console.log(data)
   if (error !== null) console.error(error)
   const albumList: Album[] = []
   data?.forEach((a) => albumList.push(a.album))
