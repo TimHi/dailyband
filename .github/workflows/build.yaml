@@ -2,7 +2,7 @@ name: build-and-deploy-container
 
 on:
   push:
-    branches: [TODO]
+    branches: [master]
 
 jobs:
   build:
