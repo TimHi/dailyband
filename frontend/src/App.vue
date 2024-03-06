@@ -3,7 +3,7 @@
 <template>
   <header></header>
   <RouterView />
-  <p>Version 01</p>
+  <p>Version 02</p>
 </template>
 
 <style scoped></style>
