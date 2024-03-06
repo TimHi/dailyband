@@ -8,7 +8,8 @@ const dailyAlbum = getDailyAlbum
 
 <template>
   <main class="center">
-    <div class="card">
+    <p v-if="!dailyAlbum">Loading...</p>
+    <div v-else class="card">
       <h1>Try this tune</h1>
       <p>Daily Camp's Musical Recommendation</p>
       <h2>{{ dailyAlbum.date }}</h2>
@@ -24,8 +25,9 @@ const dailyAlbum = getDailyAlbum
           <b>{{ dailyAlbum.title }}</b>
         </h3>
         <h4>by {{ dailyAlbum.artist[0] }}</h4>
-        <a :href="'https://daily.bandcamp.com' + dailyAlbum.link"> Learn more </a>
+        <a :href="'https://daily.bandcamp.com' + dailyAlbum.link">Visit BandCamp</a>
       </div>
+      <a href="/data">Browse full data</a>
     </div>
   </main>
 </template>

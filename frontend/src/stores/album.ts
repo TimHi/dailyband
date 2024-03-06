@@ -8,8 +8,6 @@ export const useAlbumStore = defineStore('albumStore', {
   }),
   actions: {
     async fetchDailys() {
-      const albums = await GetDaily()
-      console.log(albums)
       this.albums = (await GetDaily()) as Album[]
     }
   },
