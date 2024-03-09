@@ -11,7 +11,7 @@ const dailyAlbum = getDailyAlbum
     <div class="card">
       <h1>Try this tune</h1>
       <p>Daily Camp's Musical Recommendation</p>
-      <h2>{{ dailyAlbum.date }}</h2>
+      <h2 class="dateTitle">{{ dailyAlbum.date }}</h2>
       <div class="images">
         <img class="item" :src="dailyAlbum.image" />
         <div>
@@ -31,6 +31,13 @@ const dailyAlbum = getDailyAlbum
   </main>
 </template>
 <style>
+.linkContainer {
+}
+
+.dateTitle {
+  color: #b12323;
+}
+
 .images {
   position: relative;
   display: flex;
@@ -64,6 +71,7 @@ const dailyAlbum = getDailyAlbum
   justify-content: center;
   height: 100vh;
 }
+
 .card {
   display: flex;
   flex-direction: column;
