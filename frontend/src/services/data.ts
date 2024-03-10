@@ -13,3 +13,16 @@ export async function GetDaily(): Promise<Album[]> {
   data?.forEach((a) => albumList.push(a.album))
   return albumList
 }
+
+const colorService = 'localhost:1323/colors/'
+
+export async function GetColors() {
+  const response = await fetch('https://reqres.in/api/users', {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json'
+    }
+  })
+  const result = await response.json()
+  console.log(result)
+}

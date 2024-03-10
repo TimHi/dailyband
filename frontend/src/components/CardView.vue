@@ -4,6 +4,7 @@ import { useAlbumStore } from '@/stores/album'
 const albumStore = useAlbumStore()
 const { getDailyAlbum } = albumStore
 const dailyAlbum = getDailyAlbum
+const colors = await Get
 </script>
 
 <template>
