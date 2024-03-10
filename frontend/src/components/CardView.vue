@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { GetColors } from '@/services/data'
 import { useAlbumStore } from '@/stores/album'
 
 const albumStore = useAlbumStore()
 const { getDailyAlbum } = albumStore
 const dailyAlbum = getDailyAlbum
-const colors = await Get
+const colors = await GetColors(dailyAlbum.image)
+console.log(colors)
+const dateColor = `color: rgb(${colors[0].Y}, ${colors[0].Cb}, ${colors[0].Cr}) `
+console.log(dateColor)
 </script>
 
 <template>
@@ -12,7 +16,7 @@ const colors = await Get
     <div class="card">
       <h1>Try this tune</h1>
       <p>Daily Camp's Musical Recommendation</p>
-      <h2 class="dateTitle">{{ dailyAlbum.date }}</h2>
+      <h2 :style="dateColor">{{ dailyAlbum.date }}</h2>
       <div class="images">
         <img class="item" :src="dailyAlbum.image" />
         <div>
@@ -32,13 +36,6 @@ const colors = await Get
   </main>
 </template>
 <style>
-.linkContainer {
-}
-
-.dateTitle {
-  color: #b12323;
-}
-
 .images {
   position: relative;
   display: flex;

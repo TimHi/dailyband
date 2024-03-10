@@ -14,15 +14,21 @@ export async function GetDaily(): Promise<Album[]> {
   return albumList
 }
 
-const colorService = 'localhost:1323/colors/'
+const colorService = 'http://localhost:1323/colors/'
 
-export async function GetColors() {
-  const response = await fetch('https://reqres.in/api/users', {
+export interface ImageColor {
+  Y: number
+  Cb: number
+  Cr: number
+}
+
+export async function GetColors(url: string): Promise<ImageColor[]> {
+  const response = await fetch(colorService + url, {
     method: 'GET',
     headers: {
       Accept: 'application/json'
     }
   })
-  const result = await response.json()
-  console.log(result)
+  const result = (await response.json()) as ImageColor[]
+  return result
 }
