@@ -6,9 +6,8 @@ const albumStore = useAlbumStore()
 const { getDailyAlbum } = albumStore
 const dailyAlbum = getDailyAlbum
 const colors = await GetColors(dailyAlbum.image)
-console.log(colors)
-const dateColor = `color: rgb(${colors[0].Y}, ${colors[0].Cb}, ${colors[0].Cr}) `
-console.log(dateColor)
+//const dateColor = `color: rgb(${colors[0].Y}, ${colors[0].Cb}, ${colors[0].Cr}) `
+const dateColor = `color: ${colors[0]}`
 </script>
 
 <template>
@@ -30,12 +29,22 @@ console.log(dateColor)
         </h3>
         <h4>by {{ dailyAlbum.artist[0] }}</h4>
       </div>
-      <a :href="'https://daily.bandcamp.com' + dailyAlbum.link">Visit BandCamp</a>
-      <a href="/data">Browse full data</a>
+      <div class="linkContainer">
+        <a :href="'https://daily.bandcamp.com' + dailyAlbum.link">Visit BandCamp</a>
+        <a href="/data">Browse full data</a>
+      </div>
     </div>
   </main>
 </template>
 <style>
+.linkContainer {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
 .images {
   position: relative;
   display: flex;

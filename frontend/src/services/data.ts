@@ -22,13 +22,18 @@ export interface ImageColor {
   Cr: number
 }
 
-export async function GetColors(url: string): Promise<ImageColor[]> {
+export interface HexColor {
+  color: string
+}
+
+export async function GetColors(url: string): Promise<HexColor[]> {
   const response = await fetch(colorService + url, {
     method: 'GET',
     headers: {
       Accept: 'application/json'
     }
   })
-  const result = (await response.json()) as ImageColor[]
+  const result = (await response.json()) as HexColor[]
+  console.log(result)
   return result
 }
