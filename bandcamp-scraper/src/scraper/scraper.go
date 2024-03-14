@@ -23,13 +23,14 @@ func Scrape() []model.Album {
 		if err != nil {
 			log.Println(err)
 		} else {
-			//scrapeGenres(&album)
+			scrapeGenres(&album)
 			albums = append(albums, album)
 		}
 	})
-
+	//TODO go routines for each page til there is no page anymore, maybe split with wait groups
 	c.OnHTML(".pagination-link", func(e *colly.HTMLElement) {
 		if e.ChildText(".back-text") == "← Older posts" {
+			log.Printf("Visiting %s", e.Attr("href"))
 			e.Request.Visit(e.Attr("href"))
 		}
 	})
@@ -39,12 +40,13 @@ func Scrape() []model.Album {
 }
 
 func scrapeGenres(a *model.Album) {
-	c := colly.NewCollector()
-	c.OnHTML("div.genre a", func(e *colly.HTMLElement) {
+	g := colly.NewCollector()
+	g.OnHTML("div.genre a", func(e *colly.HTMLElement) {
 		linkText := e.Text
 		a.Genres = append(a.Genres, linkText)
 	})
-	c.Visit("https://daily.bandcamp.com" + a.Link)
+
+	g.Visit("https://daily.bandcamp.com" + a.Link)
 }
 
 func scrapeAlbum(e *colly.HTMLElement, a *model.Album) error {

@@ -17,12 +17,6 @@ func main() {
 
 	psqlPw := os.Getenv("PSQL_PW")
 	scrapedAlbums := scraper.Scrape()
-	err := network.SendParsedDataToPocketbase(&scrapedAlbums)
-	if err != nil {
-		log.Println(err)
-	} else {
-		log.Println("Succesfully sent scraped data to pocketbase backend")
-	}
 	err_sup := network.SendParsedDataToSubabase(&scrapedAlbums, psqlPw)
 	if err_sup != nil {
 		log.Println(err_sup)
