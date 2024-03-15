@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"strings"
+	"sync"
 
 	"github.com/gocolly/colly"
 	"github.com/timhi/bandcamp-scraper/m/v2/src/model"
@@ -12,11 +13,31 @@ import (
 var (
 	OPENING_QUOTE = "“"
 	CLOSING_QUOTE = "”"
+	BASE_URL      = "https://daily.bandcamp.com/album-of-the-day?page="
 )
 
 func Scrape() []model.Album {
-	c := colly.NewCollector()
 	albums := []model.Album{}
+	totalPages := getPageCount()
+	log.Print(totalPages)
+	var wg sync.WaitGroup
+	for i := 1; i <= 5; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			scrapePage(i)
+		}()
+	}
+	wg.Wait()
+
+	log.Println("Return")
+	return albums
+}
+
+func scrapePage(page int) []model.Album {
+	albums := []model.Album{}
+
+	c := colly.NewCollector()
 	c.OnHTML(".aotd", func(e *colly.HTMLElement) {
 		album := model.Album{}
 		err := scrapeAlbum(e, &album)
@@ -27,16 +48,25 @@ func Scrape() []model.Album {
 			albums = append(albums, album)
 		}
 	})
-	//TODO go routines for each page til there is no page anymore, maybe split with wait groups
-	c.OnHTML(".pagination-link", func(e *colly.HTMLElement) {
-		if e.ChildText(".back-text") == "← Older posts" {
-			log.Printf("Visiting %s", e.Attr("href"))
-			e.Request.Visit(e.Attr("href"))
-		}
-	})
 
-	c.Visit("https://daily.bandcamp.com/album-of-the-day")
+	albumPage := BASE_URL + fmt.Sprint(page)
+	log.Printf("Scraping %s \n", albumPage)
+	c.Visit(albumPage)
 	return albums
+}
+
+func getPageCount() int {
+	c := colly.NewCollector()
+
+	pageCount := 0
+	c.OnHTML(".album-of-the-day", func(e *colly.HTMLElement) {
+		pageCount++
+		newUrl := BASE_URL + fmt.Sprint(pageCount)
+		log.Printf("Valid site, visiting %s \n", newUrl)
+		c.Visit(newUrl)
+	})
+	c.Visit(BASE_URL + fmt.Sprint(0))
+	return pageCount
 }
 
 func scrapeGenres(a *model.Album) {
