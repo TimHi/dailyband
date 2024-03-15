@@ -36,20 +36,43 @@ const dateColor = `color: ${colors[0]}`
           <b>{{ dailyAlbum.title }}</b>
         </h3>
         <h4>by {{ dailyAlbum.artist }}</h4>
-        <p
-          v-if="dailyAlbum.descriptions !== undefined && dailyAlbum.descriptions.length > 0"
-          class="line-clamp"
-        >
-          {{ dailyAlbum.descriptions[0] }}
-        </p>
-        <a :href="'https://daily.bandcamp.com' + dailyAlbum.link"
-          ><font-awesome-icon icon="arrow-right" :style="{ color: colors[0] }"
-        /></a>
+        <div>
+          <p
+            v-if="dailyAlbum.descriptions !== undefined && dailyAlbum.descriptions.length > 0"
+            class="line-clamp"
+          >
+            {{ dailyAlbum.descriptions[0] }}
+          </p>
+          <div class="link-container">
+            <a class="link-style" :href="'https://daily.bandcamp.com' + dailyAlbum.link"
+              ><p>Explore more</p>
+              <font-awesome-icon
+                icon="arrow-right"
+                :style="{
+                  color: colors[0],
+                  display: 'flex',
+                  alignSelf: 'center',
+                  marginLeft: '4px'
+                }"
+            /></a>
+          </div>
+        </div>
       </div>
     </div>
   </main>
 </template>
 <style>
+.link-style {
+  display: flex;
+}
+
+.link-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .line-container {
   display: flex;
   align-items: center;
@@ -72,7 +95,8 @@ const dateColor = `color: ${colors[0]}`
   -webkit-box-orient: vertical;
   overflow: hidden;
   -webkit-line-clamp: 3;
-  max-height: calc(1.2em * 3);
+  max-height: calc(1.2em * 4);
+  text-align: left;
 }
 
 .images {
