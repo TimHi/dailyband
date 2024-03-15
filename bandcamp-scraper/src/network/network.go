@@ -36,7 +36,6 @@ func SendParsedDataToPocketbase(albums *[]model.Album) error {
 	return nil
 }
 func SendParsedDataToSubabase(albums *[]model.Album, psqlPw string) error {
-	log.Println(*albums)
 	const (
 		host   = "aws-0-eu-central-1.pooler.supabase.com"
 		port   = 5432
@@ -74,6 +73,5 @@ func SendParsedDataToSubabase(albums *[]model.Album, psqlPw string) error {
 	}
 
 	defer db.Close()
-	log.Println("Done Db")
 	return nil
 }

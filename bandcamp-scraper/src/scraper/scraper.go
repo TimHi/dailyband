@@ -19,18 +19,18 @@ var (
 func Scrape() []model.Album {
 	albums := []model.Album{}
 	totalPages := getPageCount()
-	log.Print(totalPages)
+
 	var wg sync.WaitGroup
-	for i := 1; i <= 5; i++ {
+	for i := 1; i <= totalPages; i++ {
+		tPage := i
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			scrapePage(i)
+			scrapedAlbums := scrapePage(tPage)
+			albums = append(albums, scrapedAlbums...)
 		}()
 	}
 	wg.Wait()
-
-	log.Println("Return")
 	return albums
 }
 
@@ -50,7 +50,6 @@ func scrapePage(page int) []model.Album {
 	})
 
 	albumPage := BASE_URL + fmt.Sprint(page)
-	log.Printf("Scraping %s \n", albumPage)
 	c.Visit(albumPage)
 	return albums
 }
@@ -62,7 +61,6 @@ func getPageCount() int {
 	c.OnHTML(".album-of-the-day", func(e *colly.HTMLElement) {
 		pageCount++
 		newUrl := BASE_URL + fmt.Sprint(pageCount)
-		log.Printf("Valid site, visiting %s \n", newUrl)
 		c.Visit(newUrl)
 	})
 	c.Visit(BASE_URL + fmt.Sprint(0))
@@ -90,7 +88,7 @@ func scrapeAlbum(e *colly.HTMLElement, a *model.Album) error {
 		return fmt.Errorf("error parsing artists and titles: %v", rawTitle)
 	}
 
-	a.Artist = artists
+	a.Artist = artists[0]
 	a.Title = albumTitle
 
 	dateText := e.ChildText(".article-info-text")
