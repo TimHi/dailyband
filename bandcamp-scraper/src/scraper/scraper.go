@@ -19,7 +19,7 @@ var (
 func Scrape() []model.Album {
 	albums := []model.Album{}
 	totalPages := getPageCount()
-
+	log.Println(totalPages)
 	var wg sync.WaitGroup
 	for i := 1; i <= totalPages; i++ {
 		tPage := i
@@ -44,7 +44,7 @@ func scrapePage(page int) []model.Album {
 		if err != nil {
 			log.Println(err)
 		} else {
-			scrapeGenres(&album)
+			scrapeDetails(&album)
 			albums = append(albums, album)
 		}
 	})
@@ -67,11 +67,19 @@ func getPageCount() int {
 	return pageCount
 }
 
-func scrapeGenres(a *model.Album) {
+func scrapeDetails(a *model.Album) {
 	g := colly.NewCollector()
 	g.OnHTML("div.genre a", func(e *colly.HTMLElement) {
 		linkText := e.Text
 		a.Genres = append(a.Genres, linkText)
+	})
+
+	g.OnHTML(".aotd", func(e *colly.HTMLElement) {
+		rawText := e.ChildText("p")
+		if rawText != "" {
+			log.Println("Found Description")
+		}
+		a.Descriptions = append(a.Descriptions, rawText)
 	})
 
 	g.Visit("https://daily.bandcamp.com" + a.Link)

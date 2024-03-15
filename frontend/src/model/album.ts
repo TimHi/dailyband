@@ -5,4 +5,5 @@ export interface Album {
   genres: string
   image: string
   link: string
+  descriptions: string[]
 }

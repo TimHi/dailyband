@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { GetColors } from '@/services/data'
 import { useAlbumStore } from '@/stores/album'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const albumStore = useAlbumStore()
 const { getDailyAlbum } = albumStore
 const dailyAlbum = getDailyAlbum
 const colors = await GetColors(dailyAlbum.image)
-//const dateColor = `color: rgb(${colors[0].Y}, ${colors[0].Cb}, ${colors[0].Cr}) `
+if (dailyAlbum.descriptions === undefined || dailyAlbum.descriptions === null)
+  dailyAlbum.descriptions = []
 const dateColor = `color: ${colors[0]}`
 </script>
 
@@ -15,6 +17,12 @@ const dateColor = `color: ${colors[0]}`
     <div class="card">
       <h1>Try this tune</h1>
       <p>Daily Camp's Musical Recommendation</p>
+      <div class="line-container">
+        <div class="line"></div>
+        <font-awesome-icon icon="music" :style="{ color: colors[0] }" />
+        <div class="line"></div>
+      </div>
+
       <h2 :style="dateColor">{{ dailyAlbum.date }}</h2>
       <div class="images">
         <img class="item" :src="dailyAlbum.image" />
@@ -27,22 +35,44 @@ const dateColor = `color: ${colors[0]}`
         <h3>
           <b>{{ dailyAlbum.title }}</b>
         </h3>
-        <h4>by {{ dailyAlbum.artist[0] }}</h4>
-      </div>
-      <div class="linkContainer">
-        <a :href="'https://daily.bandcamp.com' + dailyAlbum.link">Visit BandCamp</a>
-        <a href="/data">Browse full data</a>
+        <h4>by {{ dailyAlbum.artist }}</h4>
+        <p
+          v-if="dailyAlbum.descriptions !== undefined && dailyAlbum.descriptions.length > 0"
+          class="line-clamp"
+        >
+          {{ dailyAlbum.descriptions[0] }}
+        </p>
+        <a :href="'https://daily.bandcamp.com' + dailyAlbum.link"
+          ><font-awesome-icon icon="arrow-right" :style="{ color: colors[0] }"
+        /></a>
       </div>
     </div>
   </main>
 </template>
 <style>
-.linkContainer {
+.line-container {
   display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
-  width: 80%;
-  margin-bottom: 10px;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.line {
+  border: 1px solid #383a3f;
+  z-index: 1;
+  width: 50%;
+}
+
+.character {
+  padding: 0 10px; /* Adjust as needed */
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  max-height: calc(1.2em * 3);
 }
 
 .images {

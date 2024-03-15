@@ -34,6 +34,5 @@ export async function GetColors(url: string): Promise<HexColor[]> {
     }
   })
   const result = (await response.json()) as HexColor[]
-  console.log(result)
   return result
 }

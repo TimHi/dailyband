@@ -16,6 +16,7 @@ func main() {
 	}
 
 	psqlPw := os.Getenv("PSQL_PW")
+	log.Println("Start scraping 🦅")
 	scrapedAlbums := scraper.Scrape()
 	err_sup := network.SendParsedDataToSubabase(&scrapedAlbums, psqlPw)
 	if err_sup != nil {
