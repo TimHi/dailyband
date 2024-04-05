@@ -2,7 +2,7 @@ export interface Album {
   title: string
   artist: string
   date: string
-  genres: string
+  genre: string[]
   image: string
   link: string
   descriptions: string[]

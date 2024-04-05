@@ -2,14 +2,15 @@
 import { GetColors } from '@/services/data'
 import { useAlbumStore } from '@/stores/album'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
+import GenreChip from '@/components/GenreChip.vue'
 const albumStore = useAlbumStore()
 const { getDailyAlbum } = albumStore
 const dailyAlbum = getDailyAlbum
 const colors = await GetColors(dailyAlbum.image)
 if (dailyAlbum.descriptions === undefined || dailyAlbum.descriptions === null)
   dailyAlbum.descriptions = []
-const dateColor = `color: ${colors[0]}`
+const dateColor = `color: ${colors[0]}`;
+
 </script>
 
 <template>
@@ -42,7 +43,8 @@ const dateColor = `color: ${colors[0]}`
           </p>
           <div class="link-container">
             <a class="link-style" :href="'https://daily.bandcamp.com' + dailyAlbum.link">
-              <p class="shadow" v-if="dailyAlbum.descriptions !== undefined && dailyAlbum.descriptions.length > 0">More
+              <p class="shadow" v-if="dailyAlbum.descriptions !== undefined && dailyAlbum.descriptions.length > 0">Read
+                more
               </p>
               <p class="shadow" v-else>Details</p>
               <font-awesome-icon class="shadow" icon="arrow-right" :style="{
@@ -53,12 +55,28 @@ const dateColor = `color: ${colors[0]}`
         }" />
             </a>
           </div>
+          <div class="chips">
+            <div v-for="genre in dailyAlbum.genre" :key="genre" class="chip">
+              <GenreChip :genreTitle=genre />
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </main>
 </template>
 <style>
+.chips {
+  display: flex;
+  margin: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.chip {
+  margin-right: 4px;
+}
+
 .shadow {
   text-shadow: 1px 1px #3b3b3b;
 }
