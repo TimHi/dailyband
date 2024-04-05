@@ -23,7 +23,7 @@ const dateColor = `color: ${colors[0]}`
         <div class="line"></div>
       </div>
 
-      <h2 :style="dateColor">{{ dailyAlbum.date }}</h2>
+      <h2 class="shadow" :style="dateColor">{{ dailyAlbum.date }}</h2>
       <div class="images">
         <img class="item" :src="dailyAlbum.image" />
         <div>
@@ -37,24 +37,21 @@ const dateColor = `color: ${colors[0]}`
         </h3>
         <h4>by {{ dailyAlbum.artist }}</h4>
         <div>
-          <p
-            v-if="dailyAlbum.descriptions !== undefined && dailyAlbum.descriptions.length > 0"
-            class="line-clamp"
-          >
+          <p v-if="dailyAlbum.descriptions !== undefined && dailyAlbum.descriptions.length > 0" class="line-clamp">
             {{ dailyAlbum.descriptions[0] }}
           </p>
           <div class="link-container">
-            <a class="link-style" :href="'https://daily.bandcamp.com' + dailyAlbum.link"
-              ><p>Explore more</p>
-              <font-awesome-icon
-                icon="arrow-right"
-                :style="{
-                  color: colors[0],
-                  display: 'flex',
-                  alignSelf: 'center',
-                  marginLeft: '4px'
-                }"
-            /></a>
+            <a class="link-style" :href="'https://daily.bandcamp.com' + dailyAlbum.link">
+              <p class="shadow" v-if="dailyAlbum.descriptions !== undefined && dailyAlbum.descriptions.length > 0">More
+              </p>
+              <p class="shadow" v-else>Details</p>
+              <font-awesome-icon class="shadow" icon="arrow-right" :style="{
+          color: colors[0],
+          display: 'flex',
+          alignSelf: 'center',
+          marginLeft: '4px'
+        }" />
+            </a>
           </div>
         </div>
       </div>
@@ -62,6 +59,10 @@ const dateColor = `color: ${colors[0]}`
   </main>
 </template>
 <style>
+.shadow {
+  text-shadow: 1px 1px #3b3b3b;
+}
+
 .link-style {
   display: flex;
 }
@@ -87,7 +88,8 @@ const dateColor = `color: ${colors[0]}`
 }
 
 .character {
-  padding: 0 10px; /* Adjust as needed */
+  padding: 0 10px;
+  /* Adjust as needed */
 }
 
 .line-clamp {
