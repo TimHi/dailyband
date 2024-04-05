@@ -13,3 +13,4 @@ Full data is available at [/data](https://dailyband.rudivoellerbundestrainer2023
 ## Future work
 
 - Provide scraped data as CSV
+- Improve parsing the color palette from the image [go-colorpalette](https://github.com/TimHi/go-colorpalette)
