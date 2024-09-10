@@ -14,7 +14,7 @@ export async function GetDaily(): Promise<Album[]> {
   return albumList
 }
 
-const colorService = 'https://color.rudivoellerbundestrainer2023.motorcycles/colors/'
+const colorService = 'https://color.timhi.xyz/colors/'
 
 export interface ImageColor {
   Y: number

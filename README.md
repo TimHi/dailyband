@@ -8,7 +8,7 @@ To play around with web scraping and discovering new music.
 
 ## Data
 
-Full data is available at [/data](https://dailyband.rudivoellerbundestrainer2023.motorcycles/data).
+Full data is available at [/data](https://dailyband.timhi.xyz/data).
 
 ## Future work
 
